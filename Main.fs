@@ -2,26 +2,28 @@
 
 open Raylib_cs
 open Util
-open StartMenu
-open Interaction
+open Util_Funcs
 
 [<EntryPoint>]
 let main argv =
 
-    let windowSize = {W = 800; H = 600}
-
     let mutable state = 
         {
             Nplayers = 2
+            turn = 1
             scene = StartMenu
-            windowSize = windowSize
+            windowSize = {W = 800; H = 600}
 
             StartButton = None
             PlusButton = None
             MinusButton = None
+
+            ScoringTable = 
+                let emptyPlayerMap = ScoreCategories |> List.map (fun x -> (x, None)) |> Map.ofList 
+                Players |> List.map (fun x -> (x, emptyPlayerMap)) |> Map.ofList
         }
 
-    Raylib.InitWindow(windowSize.W, windowSize.H, "Yacht")
+    Raylib.InitWindow(state.windowSize.W, state.windowSize.H, "Yacht")
 
     Raylib.SetTargetFPS(60)
 
@@ -30,8 +32,8 @@ let main argv =
         Raylib.BeginDrawing()
 
         state
-        |> draw
-        |> update
+        |> Drawing.draw
+        |> Interaction.update
         |> fun st -> state <- st
 
         Raylib.EndDrawing()

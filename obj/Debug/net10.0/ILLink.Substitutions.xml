@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linker>
+  <assembly fullname="Yacht">
+    <resource name="FSharpSignatureData.Yacht" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedData.Yacht" action="remove"></resource>
+    <resource name="FSharpSignatureDataB.Yacht" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedDataB.Yacht" action="remove"></resource>
+    <resource name="FSharpOptimizationData.Yacht" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedData.Yacht" action="remove"></resource>
+    <resource name="FSharpOptimizationDataB.Yacht" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedDataB.Yacht" action="remove"></resource>
+    <resource name="FSharpOptimizationInfo.Yacht" action="remove"></resource>
+    <resource name="FSharpSignatureInfo.Yacht" action="remove"></resource>
+  </assembly>
+</linker>

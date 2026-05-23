@@ -82,8 +82,6 @@ let draw_StartButton (state) =
 
 let draw (state) =
 
-    Raylib.ClearBackground(Color.DarkBlue)
-
     state
     |> draw_title
     |> draw_NPButton

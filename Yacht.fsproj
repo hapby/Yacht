@@ -9,6 +9,8 @@
     <Compile Include="Util.fs" />
     <Compile Include="Interaction.fs" />
     <Compile Include="StartMenu.fs" />
+    <Compile Include="Board.fs" />
+    <Compile Include="Drawing.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>
 

@@ -8,7 +8,7 @@ open Raylib_cs
 let StartButton_IC (state) =
 
     let mousePos =
-            Raylib.GetMousePosition()
+        Raylib.GetMousePosition()
 
     let isHover =
         Raylib.CheckCollisionPointRec(
@@ -19,7 +19,8 @@ let StartButton_IC (state) =
     let isClicked =
         isHover && Raylib.IsMouseButtonPressed(MouseButton.Left)
     
-    if isClicked then { state with scene = Game}
+    if isClicked then 
+        { state with scene = Game; windowSize = { W = 1500; H = 980 } }
     else state
 
 let PlusButton_IC (state) = 
@@ -59,7 +60,7 @@ let MinusButton_IC (state) =
 let update (state) = 
 
     state
-    |> StartButton_IC
     |> PlusButton_IC
     |> MinusButton_IC
+    |> StartButton_IC
     
