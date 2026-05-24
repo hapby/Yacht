@@ -11,6 +11,7 @@
     <Compile Include="UI_func.fs" />
     <Compile Include="StartMenu_Interaction.fs" />
     <Compile Include="Shake.fs" />
+    <Compile Include="GuageBar.fs" />
     <Compile Include="Name.fs" />
     <Compile Include="ReturnMenuUI.fs" />
     <Compile Include="GamePause_Interaction.fs" />

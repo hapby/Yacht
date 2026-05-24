@@ -153,7 +153,7 @@ let IsAllScored (p : Player) (state : State) =
 
 let TotalScoreSum (p : Player) (state : State) = 
     let ScoreMap = Map.find p state.Score
-    let bonus = if AllNumberSum p state > 63 then 35 else 0
+    let bonus = if AllNumberSum p state >= 63 then 35 else 0
     bonus + List.fold (fun state e -> (Map.find e ScoreMap) + state) 0 ScoreCategories
 
 

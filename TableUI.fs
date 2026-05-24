@@ -72,7 +72,7 @@ let DrawPlayers (state : State) =
         let Bonus35Rect = {
             txt = {
                 txt = 
-                    if IsAllNumberScored plr state && (AllNumberSum plr state) > 63 then "35"
+                    if IsAllNumberScored plr state && (AllNumberSum plr state) >= 63 then "35"
                     elif IsAllNumberScored plr state then "0"
                     else ""
                 font = Tabel_Init.Bonus_TextSize
@@ -225,7 +225,7 @@ let DrawCategoty (state) =
     DrawRect(Bonus35Rect)
 
     let ExplanationText = {
-        txt = "Bonus if Ones - Sixes are over 63 points"
+        txt = "Bonus if Ones - Sixes are greater or equal to 63 points"
         font = Explanation_TextSize
         pos = { X = TurnText.X ; Y = Bonus35Rect.Y + (Bonus35Rect.H + Explanation_TextSize) / 2}
         color = Color.Black

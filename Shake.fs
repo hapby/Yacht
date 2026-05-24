@@ -41,7 +41,7 @@ let AnimateRoll (state : State) =
 
 let PowerUp (state : State) = 
     if Raylib.IsKeyDown(KeyboardKey.Space) = true && not state.IsAnimating then
-        {state with ShakePower = min 10000.0f (state.ShakePower + 0.5f)}
+        {state with ShakePower = min 100.0f (state.ShakePower + 0.5f)}
     else state
 
 let ReleasePower (state : State) = 

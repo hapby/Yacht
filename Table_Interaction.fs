@@ -102,7 +102,7 @@ let ScoreButtonIC (plr : Player) (state : State) (x : ScoreCategory) =
     let isClicked =
         isHover && Raylib.IsMouseButtonPressed(MouseButton.Left)
     
-    if isClicked && GetTouch plr state x = false && plr = (NumToPlayer state.player_turn) && state.Roll_Count > 0 then 
+    if isClicked && GetTouch plr state x = false && plr = (NumToPlayer state.player_turn) && state.Roll_Count > 0 && state.IsAnimating = false then 
         let UpdatedState = Turn_Manager.update state
         let Nstate = AddScore plr UpdatedState (CalcScore x (UpdatedState.dice_pattern)) x
         SetTouch plr Nstate x

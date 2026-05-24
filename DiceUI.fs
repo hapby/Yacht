@@ -66,6 +66,9 @@ let draw (state : State) =
     let HelpPos = {X = midX ; Y = state.windowSize.H - 150}
     if state.scene = GamePause then MISC HelpPos
 
+    let GuagePos = {X = midX ; Y = 150}
+    GuageBar.draw GuagePos state
+
     let lst = List.init 5 (fun x -> x + 1)
     state 
     |> fun state -> List.fold (fun state e -> DrawDice e  StartPos Dice_Init state) state lst
