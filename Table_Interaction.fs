@@ -15,10 +15,14 @@ let ChoicePattern (dice_pattern : int list) =
     |> List.fold (fun state e -> e + state) 0
 
 let FourKindPattern (dice_pattern : int list) = 
-    let lst = List.init 6 (fun x -> x + 1)
+    let lst = List.init 6 (fun x -> x + 1) 
 
-    lst
-    |> List.fold (fun state e -> if CountDice dice_pattern e >= 4 then max state (e * 4) else state)  0
+    let count_lst = lst |> List.fold (fun state e ->  CountDice dice_pattern e :: state)  [] |> List.rev
+
+    let A = count_lst |> List.tryFindIndex (fun e -> e >= 4)
+
+    if A = None then 0
+    else ChoicePattern dice_pattern
 
 let FullHousePattern (dice_pattern : int list) = 
     let lst = List.init 6 (fun x -> x + 1) 
