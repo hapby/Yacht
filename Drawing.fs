@@ -13,5 +13,5 @@ let draw (state) =
         centerWindow ()
 
     match state.scene with 
-    | StartMenu -> StartMenu.draw state
-    | Game -> Board.draw state
+    | StartMenu -> StartMenuUI.draw state
+    | Game -> BoardUI.draw state

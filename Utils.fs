@@ -26,6 +26,21 @@ let NumToPlayer idx =
     | 4 -> P4
     | _ -> failwith "No player over 4 exists"
 
+let AddDice idx state rect =
+    state.Dices <- Map.add idx rect state.Dices
+    state
+
+let SelectDice idx state = 
+    let v = Map.find idx state.IsDiceSelected
+    state.IsDiceSelected <- Map.add idx (not v) state.IsDiceSelected
+    state
+
+let GetDice idx state = 
+    Map.find idx state.Dices 
+
+let GetDiceSelected idx state = 
+    Map.find idx state.IsDiceSelected 
+
 let AddButton idx state rect scoreCategory = 
     let playerKey = NumToPlayer idx
 

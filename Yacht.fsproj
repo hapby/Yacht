@@ -10,10 +10,15 @@
     <Compile Include="Utils.fs" />
     <Compile Include="UI_func.fs" />
     <Compile Include="StartMenu_Interaction.fs" />
+    <Compile Include="Shake.fs" />
+    <Compile Include="Dice_Interaction.fs" />
+    <Compile Include="Table_Interaction.fs" />
     <Compile Include="Game_Interaction.fs" />
     <Compile Include="Interaction.fs" />
-    <Compile Include="StartMenu.fs" />
-    <Compile Include="Board.fs" />
+    <Compile Include="StartMenuUI.fs" />
+    <Compile Include="DiceUI.fs" />
+    <Compile Include="TableUI.fs" />
+    <Compile Include="BoardUI.fs" />
     <Compile Include="Drawing.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>

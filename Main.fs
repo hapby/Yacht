@@ -11,10 +11,16 @@ let main argv =
         {
             Nplayers = 2
             turn = 1
+            player_turn = 1
             scene = StartMenu
             windowSize = {W = 800; H = 600}
 
             dice_pattern = List.init 5 (fun x -> x + 1)
+            ShakePower = 0f
+            AnimTime = 0f
+            AnimElapsed = 0f
+            NextRollTime = 0f
+            IsAnimating = false
 
             P1_Name = "P1"
             P2_Name = "P2"
@@ -24,6 +30,8 @@ let main argv =
             StartButton = None
             PlusButton = None
             MinusButton = None
+
+            Tabel_Init = TableConfig 30
 
             ScoringTable = 
                 let emptyPlayerMap = ScoreCategories |> List.map (fun x -> (x, None)) |> Map.ofList 
@@ -36,6 +44,9 @@ let main argv =
             IsTableTouched = 
                 let emptyPlayerMap = ScoreCategories |> List.map (fun x -> (x, false)) |> Map.ofList 
                 Players |> List.map (fun x -> (x, emptyPlayerMap)) |> Map.ofList
+
+            Dices = List.init 5 id |> List.map (fun e -> (e + 1, None)) |> Map.ofList
+            IsDiceSelected = List.init 5 id |> List.map (fun e -> (e + 1, false)) |> Map.ofList
         }
 
     Raylib.InitWindow(state.windowSize.W, state.windowSize.H, "Yacht")

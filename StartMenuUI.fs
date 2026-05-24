@@ -1,4 +1,4 @@
-﻿module StartMenu
+﻿module StartMenuUI
 open Config
 open UI_func
 open Raylib_cs

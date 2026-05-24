@@ -25,6 +25,13 @@ type TableConfig (Basic_Font : int)=
   member this.StartPos = {X = this.CatEntry_Width * 9 / 16 ; Y = Basic_Font * 3 / 2}
   
 
+type DiceConfig (DiceSize : int) = 
+
+  member this.DiceSize = DiceSize
+  member this.Dice_Space_Dice = DiceSize / 8
+
+
+
 type Text = 
   { 
     txt : string
@@ -84,6 +91,7 @@ type State =
     Nplayers : int
     scene : Scene
     turn : int
+    player_turn : int
     
     windowSize : Size
 
@@ -91,11 +99,21 @@ type State =
     PlusButton : Rectangle option
     MinusButton : Rectangle option
 
+    Tabel_Init : TableConfig
     mutable ScoringTable : Map<Player, Map<ScoreCategory, Rectangle option>>
     mutable Score : Map<Player, Map<ScoreCategory, int>>
     mutable IsTableTouched : Map<Player, Map<ScoreCategory, bool>>
 
+    mutable Dices : Map<int, Rectangle option> // n -> nth dice
+    mutable IsDiceSelected : Map<int, bool> 
+
     dice_pattern : int list
+
+    mutable ShakePower : float32
+    mutable AnimTime : float32
+    mutable AnimElapsed : float32
+    mutable NextRollTime : float32
+    mutable IsAnimating : bool
 
     P1_Name : string
     P2_Name : string

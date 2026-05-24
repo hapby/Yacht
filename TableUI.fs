@@ -1,4 +1,4 @@
-module Board
+module TableUI
 
 open Config
 open UI_func
@@ -6,8 +6,9 @@ open Utils
 open Raylib_cs
 
 
-let DrawPlayers (Tabel_Init : TableConfig) (state : State) =
+let DrawPlayers (state : State) =
 
+    let Tabel_Init = state.Tabel_Init
     let Basic_font = Tabel_Init.Basic_Font
     let Basic_TextSpacing = Tabel_Init.Basic_TextSpacing
     let Entry_Width = Tabel_Init.Entry_Width
@@ -115,8 +116,9 @@ let DrawPlayers (Tabel_Init : TableConfig) (state : State) =
     |> List.fold helper state
 
 
-let DrawCategoty (Tabel_Init : TableConfig) (state) =
+let DrawCategoty (state) =
 
+    let Tabel_Init = state.Tabel_Init
     let Basic_font = Tabel_Init.Basic_Font
 
     let Explanation_TextSize = Tabel_Init.Explanation_TxtSize
@@ -246,16 +248,8 @@ let DrawCategoty (Tabel_Init : TableConfig) (state) =
 
     state
 
-let DrawTable (state) = 
-
-    let Tabel_Init = TableConfig(30)
-
-    state 
-    |> DrawCategoty Tabel_Init
-    |> DrawPlayers Tabel_Init
-
-
 let draw (state) = 
 
-    state
-    |> DrawTable 
+    state 
+    |> DrawCategoty 
+    |> DrawPlayers 

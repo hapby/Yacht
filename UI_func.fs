@@ -42,3 +42,12 @@ open Raylib_cs
         B.color
     )
     DrawText (B.txt)
+
+
+  let DrawThickRect (B : Button) = 
+    Raylib.DrawRectangleLinesEx(
+        B.rect,
+        5.0f,
+        B.color
+    )
+    DrawText (B.txt)
