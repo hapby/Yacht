@@ -15,3 +15,4 @@ let draw (state) =
     match state.scene with 
     | StartMenu -> StartMenuUI.draw state
     | Game -> BoardUI.draw state
+    | GameOver -> ReturnMenuUI.draw state

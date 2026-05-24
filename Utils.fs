@@ -139,6 +139,24 @@ let Score_Numbers = [
       (6, Sixes)
   ]
 
+let IsAllNumberScored (p : Player) (state : State) = 
+    let TouchedMap = Map.find p state.IsTableTouched
+    List.fold (fun state e -> (Map.find (snd e) TouchedMap) && state) true Score_Numbers
+
+let AllNumberSum  (p : Player) (state : State) = 
+    let ScoreMap = Map.find p state.Score
+    List.fold (fun state e -> (Map.find (snd e) ScoreMap) + state) 0 Score_Numbers
+
+let IsAllScored (p : Player) (state : State) = 
+    let TouchedMap = Map.find p state.IsTableTouched
+    List.fold (fun state e -> (Map.find e TouchedMap) && state) true ScoreCategories
+
+let TotalScoreSum (p : Player) (state : State) = 
+    let ScoreMap = Map.find p state.Score
+    let bonus = if AllNumberSum p state > 63 then 35 else 0
+    bonus + List.fold (fun state e -> (Map.find e ScoreMap) + state) 0 ScoreCategories
+
+
 let Score_Others = [
       (1, Choice)
       (2, FourKind)
@@ -156,3 +174,70 @@ let UnBox x =
     match x with
     | Some v -> v
     | _ -> failwith "Some object is not initialized."
+
+let FindWinner (state : State) =
+    let currentPlayers =
+        List.init state.Nplayers (fun x -> x + 1)
+        |> List.map NumToPlayer
+
+    let scores =
+        currentPlayers
+        |> List.map (fun p -> TotalScoreSum p state)
+
+    let ma = List.max scores
+
+    let winnerIdx =
+        scores
+        |> List.findIndex (fun x -> x = ma)
+
+    (NumToPlayer (winnerIdx + 1), ma)
+
+let init () = 
+    let mutable state = 
+        {
+            Nplayers = 2
+            turn = 12
+            player_turn = 2
+            Roll_Count = 0
+
+            scene = StartMenu
+            windowSize = {W = 800; H = 600}
+
+            dice_pattern = List.init 5 (fun x -> x + 1)
+            ShakePower = 0f
+            AnimTime = 0f
+            AnimElapsed = 0f
+            NextRollTime = 0f
+            IsAnimating = false
+
+            MAX_NAME_LENGTH = 6
+            Player_Names = Players |> List.map (fun e -> (e, PlayerToString e)) |> Map.ofList
+            Player_NameRects = Players |> List.map (fun e -> (e, None)) |> Map.ofList
+            Getting_NameInput = false
+            EditingPlayer = None
+            NameInputBuffer = ""
+
+            ReturnMenuButton = None
+
+            StartButton = None
+            PlusButton = None
+            MinusButton = None
+
+            Tabel_Init = TableConfig 30
+
+            ScoringTable = 
+                let emptyPlayerMap = ScoreCategories |> List.map (fun x -> (x, None)) |> Map.ofList 
+                Players |> List.map (fun x -> (x, emptyPlayerMap)) |> Map.ofList
+            
+            Score = 
+                let emptyPlayerMap = ScoreCategories |> List.map (fun x -> (x, 0)) |> Map.ofList 
+                Players |> List.map (fun x -> (x, emptyPlayerMap)) |> Map.ofList
+            
+            IsTableTouched = 
+                let emptyPlayerMap = ScoreCategories |> List.map (fun x -> (x, false)) |> Map.ofList 
+                Players |> List.map (fun x -> (x, emptyPlayerMap)) |> Map.ofList
+
+            Dices = List.init 5 id |> List.map (fun e -> (e + 1, None)) |> Map.ofList
+            IsDiceSelected = List.init 5 id |> List.map (fun e -> (e + 1, false)) |> Map.ofList
+        }
+    state

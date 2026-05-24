@@ -7,49 +7,7 @@ open Utils
 [<EntryPoint>]
 let main argv =
 
-    let mutable state = 
-        {
-            Nplayers = 2
-            turn = 1
-            player_turn = 1
-            scene = StartMenu
-            windowSize = {W = 800; H = 600}
-
-            dice_pattern = List.init 5 (fun x -> x + 1)
-            ShakePower = 0f
-            AnimTime = 0f
-            AnimElapsed = 0f
-            NextRollTime = 0f
-            IsAnimating = false
-
-            MAX_NAME_LENGTH = 6
-            Player_Names = Players |> List.map (fun e -> (e, PlayerToString e)) |> Map.ofList
-            Player_NameRects = Players |> List.map (fun e -> (e, None)) |> Map.ofList
-            Getting_NameInput = false
-            EditingPlayer = None
-            NameInputBuffer = ""
-
-            StartButton = None
-            PlusButton = None
-            MinusButton = None
-
-            Tabel_Init = TableConfig 30
-
-            ScoringTable = 
-                let emptyPlayerMap = ScoreCategories |> List.map (fun x -> (x, None)) |> Map.ofList 
-                Players |> List.map (fun x -> (x, emptyPlayerMap)) |> Map.ofList
-            
-            Score = 
-                let emptyPlayerMap = ScoreCategories |> List.map (fun x -> (x, 0)) |> Map.ofList 
-                Players |> List.map (fun x -> (x, emptyPlayerMap)) |> Map.ofList
-            
-            IsTableTouched = 
-                let emptyPlayerMap = ScoreCategories |> List.map (fun x -> (x, false)) |> Map.ofList 
-                Players |> List.map (fun x -> (x, emptyPlayerMap)) |> Map.ofList
-
-            Dices = List.init 5 id |> List.map (fun e -> (e + 1, None)) |> Map.ofList
-            IsDiceSelected = List.init 5 id |> List.map (fun e -> (e + 1, false)) |> Map.ofList
-        }
+    let mutable state = init ()
 
     Raylib.InitWindow(state.windowSize.W, state.windowSize.H, "Yacht")
 

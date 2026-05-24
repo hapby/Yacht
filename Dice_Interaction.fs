@@ -5,6 +5,13 @@ open Config
 open Raylib_cs
 open Utils
 
+
+
+let Reset_DiceSelection (state : State) = 
+    let lst = List.init 5 (fun x -> x + 1)
+    List.iter (fun idx -> state.IsDiceSelected <- Map.add idx false state.IsDiceSelected) lst
+    state
+
 let Dice_IC (idx : int) (state) =
 
     let mousePos =
@@ -19,7 +26,7 @@ let Dice_IC (idx : int) (state) =
     let isClicked =
         isHover && Raylib.IsMouseButtonPressed(MouseButton.Left)
     
-    if isClicked && not state.IsAnimating then 
+    if isClicked && not state.IsAnimating && state.Roll_Count > 0 then 
         SelectDice idx state
     else state
 

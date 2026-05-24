@@ -85,13 +85,17 @@ type ScoreCategory =
 type Scene =
   | StartMenu
   | Game
+  | GameOver
 
 type State = 
   {
     Nplayers : int
-    scene : Scene
-    turn : int
-    player_turn : int
+    mutable scene : Scene
+    mutable turn : int
+    mutable player_turn : int
+    mutable Roll_Count : int
+
+    mutable ReturnMenuButton : Rectangle option
     
     windowSize : Size
 

@@ -56,7 +56,9 @@ let DrawPlayers (state : State) =
 
         let SubtotalRect = {
             txt = {
-                txt = ""
+                txt = 
+                    if IsAllNumberScored plr state then string (AllNumberSum plr state)
+                    else ""
                 font = Tabel_Init.Subtotal_TextSize
                 pos = { X = NameButton.X ; Y = NameButton.Y + NameButton.H / 2 + (Basic_font + Basic_TextSpacing) * 6 + (Tabel_Init.Subtotal_TextSize + Basic_TextSpacing) / 2}
                 color = Color.White
@@ -69,7 +71,9 @@ let DrawPlayers (state : State) =
 
         let Bonus35Rect = {
             txt = {
-                txt = ""
+                txt = 
+                    if IsAllNumberScored plr state && (AllNumberSum plr state) > 63 then "35"
+                    else ""
                 font = Tabel_Init.Bonus_TextSize
                 pos = { X = NameButton.X ; Y = SubtotalRect.Y + (Tabel_Init.Bonus_TextSize + SubtotalRect.H + Basic_TextSpacing) / 2}
                 color = Color.White
@@ -100,7 +104,9 @@ let DrawPlayers (state : State) =
 
         let TotalRect = {
             txt = {
-                txt = ""
+                txt = 
+                    if IsAllScored plr state then string (TotalScoreSum plr state)
+                    else ""
                 font = Tabel_Init.Total_TextSize
                 pos = { X = NameButton.X ; Y = Tabel_Init.Yacht_Space_Total + Bonus35Rect.Y + Tabel_Init.Explanation_TxtSize + Bonus35Rect.H / 2 + (Basic_font + Basic_TextSpacing) * 6 + (Tabel_Init.Total_TextSize + Basic_TextSpacing) / 2}
                 color = Color.White
@@ -110,6 +116,13 @@ let DrawPlayers (state : State) =
             color = Color.Black
         }
         DrawRect(TotalRect)
+
+        if state.player_turn = pidx then
+            Raylib.DrawRectangleLinesEx(
+                Rectangle(float32 (NameButton.X - NameButton.W / 2), float32 (NameButton.Y - NameButton.H / 2), float32 Entry_Width, float32 (TotalRect.Y + TotalRect.H / 2 - NameButton.Y + NameButton.H / 2)), 
+                3.0f,
+                Color.Lime
+            )
 
         NNstate
 

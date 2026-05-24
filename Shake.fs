@@ -33,8 +33,10 @@ let AnimateRoll (state : State) =
                 state.NextRollTime <- 1f / rollFrequency
                 state
         else state
-    else 
-        if state.AnimTime > 0f then {state with ShakePower = 0f ; AnimTime = 0f ; AnimElapsed = 0f ; IsAnimating = false}
+    else
+        if state.AnimTime > 0f then 
+            state.Roll_Count <- state.Roll_Count + 1
+            {state with ShakePower = 0f ; AnimTime = 0f ; AnimElapsed = 0f ; IsAnimating = false}
         else state
 
 let PowerUp (state : State) = 
@@ -49,7 +51,7 @@ let ReleasePower (state : State) =
 
 let update (state : State) =
 
-    if state.Getting_NameInput = false then
+    if state.Getting_NameInput = false && state.Roll_Count < 3 then
         state
         |> PowerUp
         |> ReleasePower
