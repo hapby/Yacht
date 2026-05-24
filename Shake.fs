@@ -39,18 +39,20 @@ let AnimateRoll (state : State) =
 
 let PowerUp (state : State) = 
     if Raylib.IsKeyDown(KeyboardKey.Space) = true && not state.IsAnimating then
-        {state with ShakePower = min 10000.0f (state.ShakePower + 0.1f)}
+        {state with ShakePower = min 10000.0f (state.ShakePower + 0.5f)}
     else state
 
 let ReleasePower (state : State) = 
     if Raylib.IsKeyReleased KeyboardKey.Space = true && not state.IsAnimating then
-        {state with AnimTime = 1f ; AnimElapsed = 0f ; NextRollTime = 0f ; IsAnimating = true}
+        {state with AnimTime = 0.6f ; AnimElapsed = 0f ; NextRollTime = 0f ; IsAnimating = true}
     else state
 
 let update (state : State) =
 
-    state
-    |> PowerUp
-    |> ReleasePower
-    |> AnimateRoll
+    if state.Getting_NameInput = false then
+        state
+        |> PowerUp
+        |> ReleasePower
+        |> AnimateRoll
+    else state
     

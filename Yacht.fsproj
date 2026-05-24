@@ -11,6 +11,7 @@
     <Compile Include="UI_func.fs" />
     <Compile Include="StartMenu_Interaction.fs" />
     <Compile Include="Shake.fs" />
+    <Compile Include="Name.fs" />
     <Compile Include="Dice_Interaction.fs" />
     <Compile Include="Table_Interaction.fs" />
     <Compile Include="Game_Interaction.fs" />

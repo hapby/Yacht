@@ -21,18 +21,20 @@ let DrawPlayers (state : State) =
 
     let helper state pidx = 
         let shift = Tabel_Init.Entry_Width * (pidx - 1)
+        let plr = NumToPlayer pidx
         let NameButton = {
             txt = {
-                txt = $"P{pidx}"
+                txt = if state.EditingPlayer = (Some plr) then state.NameInputBuffer else GetPlayerName plr state
                 font = Basic_font
                 pos = { X = P1_NameX + shift; Y = P1_NameY}
                 color = Color.White
             }
             size = NameSize
             pos = { X = P1_NameX + shift; Y = P1_NameY}
-            color = Color.Black
+            color = if state.EditingPlayer = (Some plr) then Color.Blue else Color.Black
         }
         DrawRect(NameButton)
+        state.Player_NameRects <- Map.add plr (Some NameButton.rect) state.Player_NameRects
 
         let helper_Numbers (state : State) (idx : int, x : ScoreCategory) = 
             let ScoreButton = {

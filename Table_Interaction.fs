@@ -107,6 +107,26 @@ let ScoreButtonIC (plr : Player) (state : State) (x : ScoreCategory) =
         SetTouch plr Nstate x
     else state
 
+let NameButton (plr : Player) (state : State) = 
+    let mousePos =
+        Raylib.GetMousePosition()
+    
+    let button = Map.find plr state.Player_NameRects
+
+    let isHover =
+        Raylib.CheckCollisionPointRec(
+            mousePos,
+            UnBox button
+        )
+
+    let isClicked =
+        isHover && Raylib.IsMouseButtonPressed(MouseButton.Left)
+    
+    if isClicked then 
+        {state with Getting_NameInput = true ; EditingPlayer = Some plr}
+    else state
+
+
 let update (state : State) = 
 
     let plst = List.init state.Nplayers (fun x -> x + 1)
@@ -119,5 +139,6 @@ let update (state : State) =
                 state
                 |> fun state -> List.fold (ScoreButtonIC p) state ScoreCategories
         ) state Plrs
-
+    |>  fun state -> List.fold (fun state p -> NameButton p state) state Plrs
+    |> Name.update
     

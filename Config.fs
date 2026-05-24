@@ -115,9 +115,10 @@ type State =
     mutable NextRollTime : float32
     mutable IsAnimating : bool
 
-    P1_Name : string
-    P2_Name : string
-    P3_Name : string
-    P4_Name : string
-
+    MAX_NAME_LENGTH : int
+    mutable Player_Names : Map<Player, string>
+    mutable Player_NameRects : Map<Player, Rectangle option>
+    mutable Getting_NameInput : bool
+    mutable EditingPlayer : Player option
+    mutable NameInputBuffer : string
   }

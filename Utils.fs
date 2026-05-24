@@ -18,6 +18,16 @@ let ScoreCategories =
         Yacht
     ]
 
+let PlayerToString (p : Player) = 
+    match p with 
+    | P1 -> "P1"
+    | P2 -> "P2"
+    | P3 -> "P3"
+    | P4 -> "P3"
+
+let GetPlayerName (p : Player) (state : State) = 
+    Map.find p state.Player_Names
+
 let NumToPlayer idx = 
     match idx with
     | 1 -> P1

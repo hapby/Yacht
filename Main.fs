@@ -22,10 +22,12 @@ let main argv =
             NextRollTime = 0f
             IsAnimating = false
 
-            P1_Name = "P1"
-            P2_Name = "P2"
-            P3_Name = "P3"
-            P4_Name = "P4"
+            MAX_NAME_LENGTH = 6
+            Player_Names = Players |> List.map (fun e -> (e, PlayerToString e)) |> Map.ofList
+            Player_NameRects = Players |> List.map (fun e -> (e, None)) |> Map.ofList
+            Getting_NameInput = false
+            EditingPlayer = None
+            NameInputBuffer = ""
 
             StartButton = None
             PlusButton = None
