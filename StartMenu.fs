@@ -1,6 +1,6 @@
 ﻿module StartMenu
-open Util
-open Util_Funcs
+open Config
+open UI_func
 open Raylib_cs
 
 let draw_title (state) = 

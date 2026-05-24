@@ -1,7 +1,7 @@
 module Drawing
 
-open Util
-open Util_Funcs
+open Config
+open UI_func
 open Raylib_cs
 
 let draw (state) = 

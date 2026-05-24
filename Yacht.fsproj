@@ -6,7 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Util.fs" />
+    <Compile Include="Config.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="UI_func.fs" />
+    <Compile Include="StartMenu_Interaction.fs" />
+    <Compile Include="Game_Interaction.fs" />
     <Compile Include="Interaction.fs" />
     <Compile Include="StartMenu.fs" />
     <Compile Include="Board.fs" />

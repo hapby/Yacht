@@ -1,27 +1,139 @@
 module Board
 
-open Util
-open Util_Funcs
+open Config
+open UI_func
+open Utils
 open Raylib_cs
 
-let draw (state) =
 
-    let Basic_font = 30
-    let Basic_TextSpacing = Basic_font * 2 / 3
-    let Turn12_font = Basic_font * 5 / 3
-    let Entry_Width = Turn12_font * 9 / 2
-    let Subtotal_TextSize = Basic_font * 4 / 5
-    let Bonus_TextSize = Basic_font * 8 / 7
-    let Explanation_TextSize = Basic_font * 2 / 3
-    let Total_TextSize = Bonus_TextSize
+let DrawPlayers (Tabel_Init : TableConfig) (state : State) =
 
-    let Turn_Space_Category = Basic_font / 2
-    let Yacht_Space_Total = Basic_font / 3
+    let Basic_font = Tabel_Init.Basic_Font
+    let Basic_TextSpacing = Tabel_Init.Basic_TextSpacing
+    let Entry_Width = Tabel_Init.Entry_Width
+
+    let NameSize = { W = Tabel_Init.Entry_Width; H = Tabel_Init.Basic_Font * 2 + Tabel_Init.Turn12_font + Tabel_Init.Turn_Space_Category + Tabel_Init.Basic_TextSpacing}
+    let P1_NameY = (Tabel_Init.StartPos.Y - Tabel_Init.Basic_Font / 2) + NameSize.H / 2
+    let P1_NameX = Tabel_Init.StartPos.X + (Tabel_Init.CatEntry_Width + Tabel_Init.Entry_Width) / 2
+
+    let PlayerList = List.init (state.Nplayers) (fun x -> x + 1) 
+
+    let helper state pidx = 
+        let shift = Tabel_Init.Entry_Width * (pidx - 1)
+        let NameButton = {
+            txt = {
+                txt = $"P{pidx}"
+                font = Basic_font
+                pos = { X = P1_NameX + shift; Y = P1_NameY}
+                color = Color.White
+            }
+            size = NameSize
+            pos = { X = P1_NameX + shift; Y = P1_NameY}
+            color = Color.Black
+        }
+        DrawRect(NameButton)
+
+        let helper_Numbers (state : State) (idx : int, x : ScoreCategory) = 
+            let ScoreButton = {
+                txt = {
+                    txt = GetScore pidx state x
+                    font = Basic_font
+                    pos = { X = NameButton.X ; Y = NameButton.Y + (NameButton.H + Basic_font + Basic_TextSpacing) / 2  + (Basic_font + Basic_TextSpacing) * (idx - 1)}
+                    color = Color.White
+                }
+                size = { W = Entry_Width ; H = Basic_font + Basic_TextSpacing }
+                pos = { X = NameButton.X ; Y = NameButton.Y + (NameButton.H + Basic_font + Basic_TextSpacing) / 2  + (Basic_font + Basic_TextSpacing) * (idx - 1)}
+                color = Color.Black
+            }
+            DrawRect(ScoreButton)
+
+            AddButton pidx state (ScoreButton.rect) x
+
+        let Nstate = Score_Numbers |> List.fold helper_Numbers state
+
+        let SubtotalRect = {
+            txt = {
+                txt = ""
+                font = Tabel_Init.Subtotal_TextSize
+                pos = { X = NameButton.X ; Y = NameButton.Y + NameButton.H / 2 + (Basic_font + Basic_TextSpacing) * 6 + (Tabel_Init.Subtotal_TextSize + Basic_TextSpacing) / 2}
+                color = Color.White
+            }
+            size = { W = Entry_Width ; H = Tabel_Init.Subtotal_TextSize + Basic_TextSpacing }
+            pos = { X = NameButton.X ; Y = NameButton.Y + NameButton.H / 2 + (Basic_font + Basic_TextSpacing) * 6 + (Tabel_Init.Subtotal_TextSize + Basic_TextSpacing) / 2}
+            color = Color.Black
+        }
+        DrawRect(SubtotalRect)
+
+        let Bonus35Rect = {
+            txt = {
+                txt = ""
+                font = Tabel_Init.Bonus_TextSize
+                pos = { X = NameButton.X ; Y = SubtotalRect.Y + (Tabel_Init.Bonus_TextSize + SubtotalRect.H + Basic_TextSpacing) / 2}
+                color = Color.White
+            }
+            size = { W = Entry_Width ; H = Tabel_Init.Bonus_TextSize + Basic_TextSpacing}
+            pos = { X = NameButton.X ; Y = SubtotalRect.Y + (Tabel_Init.Bonus_TextSize + SubtotalRect.H + Basic_TextSpacing) / 2}
+            color = Color.Black
+        }
+        DrawRect(Bonus35Rect)
+
+        let helper_Others (state : State) (idx : int, x : ScoreCategory) = 
+            let ScoreButton = {
+                txt = {
+                    txt = GetScore pidx state x
+                    font = Basic_font
+                    pos = { X = NameButton.X ; Y = Bonus35Rect.Y + Tabel_Init.Explanation_TxtSize + Bonus35Rect.H / 2 + (Basic_font + Basic_TextSpacing) / 2 + (Basic_font + Basic_TextSpacing) * (idx - 1) }
+                    color = Color.White
+                }
+                size = { W = Entry_Width ; H = Basic_font + Basic_TextSpacing }
+                pos = { X = NameButton.X ; Y = Bonus35Rect.Y + Tabel_Init.Explanation_TxtSize + Bonus35Rect.H / 2 + (Basic_font + Basic_TextSpacing) / 2 + (Basic_font + Basic_TextSpacing) * (idx - 1) }
+                color = Color.Black
+            }
+            DrawRect(ScoreButton)
+
+            AddButton pidx state (ScoreButton.rect) x
+
+        let NNstate = Score_Others |> List.fold helper_Others Nstate
+
+        let TotalRect = {
+            txt = {
+                txt = ""
+                font = Tabel_Init.Total_TextSize
+                pos = { X = NameButton.X ; Y = Tabel_Init.Yacht_Space_Total + Bonus35Rect.Y + Tabel_Init.Explanation_TxtSize + Bonus35Rect.H / 2 + (Basic_font + Basic_TextSpacing) * 6 + (Tabel_Init.Total_TextSize + Basic_TextSpacing) / 2}
+                color = Color.White
+            }
+            size = { W = Entry_Width ; H = Tabel_Init.Total_TextSize + Basic_TextSpacing }
+            pos = { X = NameButton.X ; Y = Tabel_Init.Yacht_Space_Total + Bonus35Rect.Y + Tabel_Init.Explanation_TxtSize + Bonus35Rect.H / 2 + (Basic_font + Basic_TextSpacing) * 6 + (Tabel_Init.Total_TextSize + Basic_TextSpacing) / 2}
+            color = Color.Black
+        }
+        DrawRect(TotalRect)
+
+        NNstate
+
+
+    PlayerList
+    |> List.fold helper state
+
+
+let DrawCategoty (Tabel_Init : TableConfig) (state) =
+
+    let Basic_font = Tabel_Init.Basic_Font
+
+    let Explanation_TextSize = Tabel_Init.Explanation_TxtSize
+    let Turn_Space_Category = Tabel_Init.Turn_Space_Category
+    let Yacht_Space_Total = Tabel_Init.Yacht_Space_Total
+
+    let Basic_TextSpacing = Tabel_Init.Basic_TextSpacing
+    let Turn12_font = Tabel_Init.Turn12_font
+    let CatEntry_Width = Tabel_Init.CatEntry_Width
+    let Subtotal_TextSize = Tabel_Init.Subtotal_TextSize
+    let Bonus_TextSize = Tabel_Init.Bonus_TextSize
+    let Total_TextSize = Tabel_Init.Total_TextSize
 
     let TurnText = {
         txt = "Turn"
         font = Basic_font
-        pos = { X = Entry_Width * 9 / 16 ; Y = Basic_font}
+        pos = Tabel_Init.StartPos
         color = Color.Black
     }
 
@@ -43,7 +155,7 @@ let draw (state) =
             pos = { X = TurnText.X ; Y = TurnText12.Y + (Turn12_font + Basic_font + Basic_TextSpacing) / 2 + Turn_Space_Category}
             color = Color.White
         }
-        size = { W = Entry_Width ; H = Basic_font + Basic_TextSpacing }
+        size = { W = CatEntry_Width ; H = Basic_font + Basic_TextSpacing }
         pos = { X = TurnText.X ; Y = TurnText12.Y + (Turn12_font + Basic_font + Basic_TextSpacing) / 2 + Turn_Space_Category}
         color = Color.Black
     }
@@ -133,3 +245,17 @@ let draw (state) =
     DrawRect(TotalRect)
 
     state
+
+let DrawTable (state) = 
+
+    let Tabel_Init = TableConfig(30)
+
+    state 
+    |> DrawCategoty Tabel_Init
+    |> DrawPlayers Tabel_Init
+
+
+let draw (state) = 
+
+    state
+    |> DrawTable 
