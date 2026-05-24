@@ -196,8 +196,8 @@ let init () =
     let mutable state = 
         {
             Nplayers = 2
-            turn = 12
-            player_turn = 2
+            turn = 1
+            player_turn = 1
             Roll_Count = 0
 
             scene = StartMenu

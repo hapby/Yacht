@@ -13,6 +13,7 @@
     <Compile Include="Shake.fs" />
     <Compile Include="Name.fs" />
     <Compile Include="ReturnMenuUI.fs" />
+    <Compile Include="GamePause_Interaction.fs" />
     <Compile Include="ReturnMenu_Interaction.fs" />
     <Compile Include="Dice_Interaction.fs" />
     <Compile Include="Turn_Manager.fs" />

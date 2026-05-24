@@ -40,6 +40,16 @@ let DrawDice (idx : int) (StartPos : Pos) (Dice_Init : DiceConfig) (state : Stat
 
     AddDice idx state (Some (DiceRect.rect))
 
+let MISC (pos : Pos) = 
+
+    let HelpText = { 
+        txt = "Press Enter to See the Result"
+        font = 40
+        pos = pos
+        color = Color.DarkBlue
+    }
+    DrawText(HelpText)
+
 let draw (state : State) = 
 
     let Dice_Init = DiceConfig 100
@@ -52,6 +62,9 @@ let draw (state : State) =
     let StartX = midX - 2 * (Dice_Init.DiceSize + Dice_Init.Dice_Space_Dice)
     let StartY = midY
     let StartPos = {X = StartX ; Y = StartY}
+
+    let HelpPos = {X = midX ; Y = state.windowSize.H - 150}
+    if state.scene = GamePause then MISC HelpPos
 
     let lst = List.init 5 (fun x -> x + 1)
     state 

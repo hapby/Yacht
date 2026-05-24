@@ -73,6 +73,7 @@ let DrawPlayers (state : State) =
             txt = {
                 txt = 
                     if IsAllNumberScored plr state && (AllNumberSum plr state) > 63 then "35"
+                    elif IsAllNumberScored plr state then "0"
                     else ""
                 font = Tabel_Init.Bonus_TextSize
                 pos = { X = NameButton.X ; Y = SubtotalRect.Y + (Tabel_Init.Bonus_TextSize + SubtotalRect.H + Basic_TextSpacing) / 2}

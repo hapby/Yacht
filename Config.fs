@@ -85,6 +85,7 @@ type ScoreCategory =
 type Scene =
   | StartMenu
   | Game
+  | GamePause
   | GameOver
 
 type State = 
