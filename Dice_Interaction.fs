@@ -26,7 +26,7 @@ let Dice_IC (idx : int) (state) =
     let isClicked =
         isHover && Raylib.IsMouseButtonPressed(MouseButton.Left)
     
-    if isClicked && not state.IsAnimating && state.Roll_Count > 0 then 
+    if isClicked && not state.IsAnimating && state.Roll_Count > 0 && state.IsShaking = false then 
         SelectDice idx state
     else state
 

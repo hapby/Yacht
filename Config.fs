@@ -119,6 +119,7 @@ type State =
     mutable AnimElapsed : float32
     mutable NextRollTime : float32
     mutable IsAnimating : bool
+    mutable IsShaking : bool
 
     MAX_NAME_LENGTH : int
     mutable Player_Names : Map<Player, string>

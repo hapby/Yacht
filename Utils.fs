@@ -209,6 +209,7 @@ let init () =
             AnimElapsed = 0f
             NextRollTime = 0f
             IsAnimating = false
+            IsShaking = false
 
             MAX_NAME_LENGTH = 6
             Player_Names = Players |> List.map (fun e -> (e, PlayerToString e)) |> Map.ofList
