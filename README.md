@@ -26,6 +26,7 @@ Upon execution, a start menu will be displayed where you can configure the numbe
 - **Fixing Dice:** Left-click a die to fix its value. Fixed dice will be highlighted with a red outline and remain unchanged during subsequent rolls in that turn. Left-click a fixed die again to unfix it.
 - **Scoring:** After rolling, choose an available scoring category by left-clicking the corresponding cell in your highlighted (glowing) column to record your score.
 - **Turn Management:** Once a score is recorded, the turn automatically passes to the next player. After all players complete their turns, the round counter increases. The game lasts for 12 rounds.
+- **Naming Players:** By clicking the top entry of the scoring table containing a player name, you can rename it by using a keybord. 
 
 ## Winning Conditions
 
@@ -36,6 +37,7 @@ After 12 rounds, the final scores are calculated. If the subtotal of the Aces th
 - **Immersive Shaking Animation:** Added a visual shaking effect to the dice that scales dynamically with the power gauge intensity, making the rolling experience feel tactile and realistic.
 - **Game Over & Winner Announcement Screen:** Introduced a dedicated game over screen that dynamically determines and announces the winner along with their final score, complete with a button to easily return to the start menu. Announcing a winner provides a much more natural and rewarding game conclusion.
 - **Smooth Scene Transitions:** Added a transitional prompt ("Press Enter to See the Result") to cleanly guide players from the final gameplay round to the results screen.
+- **Limitation on length of player names** Length of player's name can be up to 6 characters. Due to the size of entry and for aesthetics, I decided to limit the length of player names.
 
 ## LLM Usage
 
